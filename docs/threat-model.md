@@ -1,6 +1,6 @@
 # Frostlock Wallet Threat Model
 
-Status: Phase 1 foundation
+Status: Phase 2 — keys and backup
 
 ## Scope
 
@@ -64,15 +64,29 @@ belongs in the GPG-encrypted secret envelope and is loaded only when signing.
 - The CLI checks that the connected node is actually on regtest.
 - The workspace pins the direct BDK and RPC client versions.
 
+## Controls in Phase 2
+
+- BIP39 generation uses the operating system cryptographic random source and
+  produces 24-word English phrases;
+- mnemonic checksums are validated before any BIP32/BIP84 derivation;
+- derived private keys are short-lived and receive best-effort explicit erasure
+  before the derivation operation returns;
+- GPGME selects recipients by full fingerprint and delegates passphrase entry
+  to the configured GPG agent and pinentry;
+- the CLI never prints the mnemonic and never accepts it through an argument or
+  environment variable;
+- recovery is tested with two isolated GnuPG homes and compared receive/change
+  addresses before reporting success.
+
 ## Residual risks
 
 GPG encryption protects data at rest; it does not protect secrets from a
-compromised operating system while the wallet is unlocked. Phase 1 is therefore
+compromised operating system while the wallet is unlocked. Phase 2 is therefore
 not suitable for meaningful mainnet balances. Hardware signing, watch-only
 operation, offline PSBT exchange, and an independent security review are
 required before treating the project as a high-value wallet.
 
-## Out of scope for Phase 1
+## Out of scope for Phase 2
 
 - malware-resistant signing on a compromised host;
 - hardware wallets and secure elements;
@@ -84,12 +98,15 @@ required before treating the project as a high-value wallet.
 
 ## Security acceptance criteria
 
-Phase 1 is accepted only when:
+Phase 2 is accepted only when:
 
 1. the workspace builds with warnings denied;
 2. unit tests cover policy, descriptor separation, secret-format validation,
    and secret redaction;
 3. the regtest smoke test starts a temporary Bitcoin Core node, validates the
    chain, mines blocks, and cleans up its own temporary data;
-4. the threat model and secret format are reviewed before Phase 2 adds key
-   generation or GPG I/O.
+4. the GPGME round-trip test succeeds with an isolated keyring;
+5. the clean-machine recovery test restores from a second isolated keyring and
+   all compared addresses match;
+6. the threat model and secret format are reviewed before Phase 3 adds wallet
+   persistence or signing.

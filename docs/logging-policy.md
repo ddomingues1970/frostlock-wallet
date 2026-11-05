@@ -1,6 +1,6 @@
 # Frostlock Wallet Error and Logging Policy
 
-Status: Phase 1 foundation
+Status: Phase 2 — keys and backup
 
 ## Never log
 

@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "crates/secret-store-gpg",
     "crates/wallet-core",
     "crates/wallet-cli",
 ]
@@ -13,8 +14,11 @@ rust-version = "1.85"
 
 [workspace.dependencies]
 bdk_wallet = { version = "=3.2.0", features = ["all-keys", "rusqlite"] }
+bip39 = { version = "=3.0.0", features = ["rand", "zeroize"] }
 bitcoincore-rpc = "=0.19.0"
 clap = { version = "4.6.7", features = ["derive"] }
+gpgme = { version = "=0.11.0", features = ["v1_18"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+tempfile = "=3.26.0"
 zeroize = { version = "1.9", features = ["derive"] }

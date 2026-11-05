@@ -96,7 +96,11 @@ impl WalletSecretV1 {
             ));
         }
 
-        if self.network.is_empty() || self.mnemonic.expose().is_empty() {
+        if !matches!(
+            self.network.as_str(),
+            "bitcoin" | "testnet" | "testnet4" | "signet" | "regtest"
+        ) || self.mnemonic.expose().is_empty()
+        {
             return Err(WalletError::new(
                 ErrorCode::InvalidSecretFormat,
                 "incomplete secret payload",

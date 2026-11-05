@@ -8,6 +8,7 @@ description = "Security-first Bitcoin wallet core for Frostlock Wallet"
 
 [dependencies]
 bdk_wallet.workspace = true
+bip39.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 zeroize.workspace = true
