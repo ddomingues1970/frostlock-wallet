@@ -1,0 +1,10 @@
+/target/
+/artifacts/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.gpg
+*.psbt
+*.seed
+*.mnemonic
+.env
