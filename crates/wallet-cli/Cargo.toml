@@ -10,3 +10,4 @@ description = "Text-mode Bitcoin wallet for Frostlock Wallet"
 bitcoincore-rpc.workspace = true
 clap.workspace = true
 frostlock-wallet-core = { path = "../wallet-core" }
+frostlock-wallet-secret-store-gpg = { path = "../secret-store-gpg" }

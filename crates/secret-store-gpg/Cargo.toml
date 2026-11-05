@@ -1,0 +1,16 @@
+[package]
+name = "frostlock-wallet-secret-store-gpg"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "GPGME-backed encrypted backup adapter for Frostlock Wallet"
+
+[dependencies]
+frostlock-wallet-core = { path = "../wallet-core" }
+gpgme.workspace = true
+tempfile.workspace = true
+zeroize.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
